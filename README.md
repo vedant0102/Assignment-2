@@ -1,6 +1,7 @@
+Encryption/Decryption Program
 
-
-# Assignment 2 - Encryption/Decryption Program
+Vedant Chaubey
+A20553928
 
 This project is a command-line encryption and decryption tool implemented in Python. It supports multiple classical ciphers including:
 
