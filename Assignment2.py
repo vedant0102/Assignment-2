@@ -18,7 +18,7 @@ def shiftE(text, key=3):
         else:
             arr.append(i)
     
-    return "".join(dict)
+    return "".join(arr)
 def shiftD(text, key=3):
     return shiftE(text, -key)
 
