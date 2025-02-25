@@ -56,21 +56,11 @@ def permutationD(ciphertext, key="PLMOKNIJBUHVYGCTFXRDZESWAQ"):
 #Simple Transporation Encryption
 #################################
 
+from itertools import zip_longest
 def simple_transposition_encrypt(text, num_cols=5):
     text = text.replace(" ", "").replace("\n", "")
-    join_arr = []
-
-    # Create rows
-    rows = []
-    for i in range(0, len(text), num_cols):
-        rows.append(text[i:i+num_cols])
-
-    # Read column-by-column
-    for col in range(num_cols):
-        for row in rows:
-            if col < len(row):
-                join_arr.append(row[col])
-    return "".join(join_arr)
+    rows = [text[i:i+num_cols] for i in range(0, len(text), num_cols)]
+    return "".join(letter for col in zip_longest(*rows, fillvalue="") for letter in col)
 
 def simple_transposition_decrypt(ciphertext, num_cols=5):
     """
@@ -106,14 +96,14 @@ def simple_transposition_decrypt(ciphertext, num_cols=5):
                 text.append(columns[c][r])
     return "".join(text)
 
-def double_transposition_encrypt(text, num_cols=5):
+def dte(text, num_cols=5):
     """
     Perform simple transposition twice.
     """
     once = simple_transposition_encrypt(text, num_cols)
     return simple_transposition_encrypt(once, num_cols)
 
-def double_transposition_decrypt(ciphertext, num_cols=5):
+def dtd(ciphertext, num_cols=5):
     """
     Decrypt the message encrypted with double_transposition_encrypt.
     """
@@ -264,9 +254,9 @@ def all_cipher():
 
         elif option == '4':  # Double Transposition
             if eod == 'e':
-                output = double_transposition_encrypt(message, transposition_key)
+                output = dte(message, transposition_key)
             else:
-                output = double_transposition_decrypt(message, transposition_key)
+                output = dtd(message, transposition_key)
 
         elif option == '5':  # Vigenère
             if eod == 'e':
