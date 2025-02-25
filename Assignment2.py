@@ -19,16 +19,12 @@ def shiftE(text, key=3):
             dict.append(i)
     
     return "".join(dict)
+def shiftD(text, key=3):
+    return shiftE(text, -key)
 
-
-
-def shift_decrypt(ciphertext, key=3):
-    """
-    Decrypts ciphertext using a shift (Caesar) cipher.
-    Default key=3 if none is provided.
-    """
-    # Decryption is just shifting in the opposite direction
-    return shift_decrypt(ciphertext, -key)
+###############################
+#Permutation Cypher
+#################################
 
 def permutation_encrypt(text, key="QWERTYUIOPASDFGHJKLZXCVBNM"):
     """
@@ -211,6 +207,7 @@ def all_cipher():
                 break
             if option in valid_choices:
                 print(f"You selected option {option}.")
+                break
             else:
                 print("Invalid choice. Please try again.")
 
@@ -278,7 +275,7 @@ def all_cipher():
             if eod == 'e':
                 output = shiftE(message, shift_key)
             else:
-                output = shift_decrypt(message, shift_key)
+                output = shiftD(message, shift_key)
 
         elif option == '2':  # Permutation Cipher
             if eod == 'e':
