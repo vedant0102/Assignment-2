@@ -5,20 +5,20 @@ import string
 #################################
 
 def shiftE(text, key=3):
-    arr = []
+    join_arr = []
     for i in text:
         if i.isalpha():
             num = 65 if i.isupper() else 97
             answer = chr((ord(i) - num + key) % 26 + num)
-            dict.append(answer)
+            join_arr.append(answer)
         elif i.isdigit():
             num = 48 
             answer = chr((ord(i) - num + key) % 10 + num)
-            arr.append(answer)
+            join_arr.append(answer)
         else:
-            arr.append(i)
+            join_arr.append(i)
     
-    return "".join(arr)
+    return "".join(join_arr)
 def shiftD(text, key=3):
     return shiftE(text, -key)
 
