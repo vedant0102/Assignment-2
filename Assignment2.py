@@ -26,61 +26,39 @@ def shiftD(text, key=3):
 #Permutation Cypher
 #################################
 
-def permutation_encrypt(text, key="PLMOKNIJBUHVYGCTFXRDZESWAQ"):
-    # Create a mapping from A->key[0], B->key[1], ...
-    mapping = {}
+def permutationE(text, key="PLMOKNIJBUHVYGCTFXRDZESWAQ"):
+    big = string.ascii_uppercase
+    key = key.upper()
+    dict = {}  
+    for i, l in enumerate(big):
+        dict[l] = key[i]
+    join_arr = [
+        dict[j.upper()] if j.isalpha() and j.isupper() 
+        else (dict[j.upper()].lower() if j.isalpha() else j)
+        for j in text
+    ]
+    return "".join(join_arr)
+
+
+def permutationD(ciphertext, key="PLMOKNIJBUHVYGCTFXRDZESWAQ"):
     uppercase_alphabet = string.ascii_uppercase
     key = key.upper()
+    inverse_mapping = { letter: uppercase_alphabet[i] for i, letter in enumerate(key) }
+    
+    join_arr = [
+        inverse_mapping[char] if char.isalpha() and char.isupper()
+        else (inverse_mapping[char.upper()].lower() if char.isalpha() else char)
+        for char in ciphertext
+    ]
+    return "".join(join_arr)
 
-    for i, letter in enumerate(uppercase_alphabet):
-        mapping[letter] = key[i]  # e.g., 'A' -> 'Q', 'B' -> 'W', etc.
-
-    ciphertext = []
-    for char in text:
-        if char.isalpha():
-            # Check if uppercase or lowercase
-            if char.isupper():
-                ciphertext.append(mapping[char])
-            else:
-                # For lowercase, convert to uppercase for lookup, then lowercase the result
-                ciphertext.append(mapping[char.upper()].lower())
-        else:
-            ciphertext.append(char)
-    return "".join(ciphertext)
-
-def permutation_decrypt(ciphertext, key="PLMOKNIJBUHVYGCTFXRDZESWAQ"):
-    """
-    Decrypts ciphertext using a permutation substitution cipher.
-    Default permutation is QWERTYUIOPASDFGHJKLZXCVBNM.
-    """
-    # Build inverse mapping from key[0]->A, key[1]->B, ...
-    uppercase_alphabet = string.ascii_uppercase
-    key = key.upper()
-    inverse_mapping = {}
-    for i, letter in enumerate(key):
-        inverse_mapping[letter] = uppercase_alphabet[i]  # e.g., 'Q' -> 'A'
-
-    text = []
-    for char in ciphertext:
-        if char.isalpha():
-            if char.isupper():
-                text.append(inverse_mapping[char])
-            else:
-                # Convert to uppercase for lookup, then lowercase the result
-                text.append(inverse_mapping[char.upper()].lower())
-        else:
-            text.append(char)
-    return "".join(text)
+###############################
+#Simple Transporation Encryption
+#################################
 
 def simple_transposition_encrypt(text, num_cols=5):
-    """
-    Encrypts text by writing it row-by-row into a grid of num_cols columns,
-    then reading it column-by-column.
-    Default num_cols=5 if not provided.
-    """
-    # Remove spaces/newlines for a simpler demonstration
     text = text.replace(" ", "").replace("\n", "")
-    ciphertext = []
+    join_arr = []
 
     # Create rows
     rows = []
@@ -91,8 +69,8 @@ def simple_transposition_encrypt(text, num_cols=5):
     for col in range(num_cols):
         for row in rows:
             if col < len(row):
-                ciphertext.append(row[col])
-    return "".join(ciphertext)
+                join_arr.append(row[col])
+    return "".join(join_arr)
 
 def simple_transposition_decrypt(ciphertext, num_cols=5):
     """
@@ -274,9 +252,9 @@ def all_cipher():
 
         elif option == '2':  # Permutation Cipher
             if eod == 'e':
-                output = permutation_encrypt(message, perm_key)
+                output = permutationE(message, perm_key)
             else:
-                output = permutation_decrypt(message, perm_key)
+                output = permutationD(message, perm_key)
 
         elif option == '3':  # Simple Transposition
             if eod == 'e':
