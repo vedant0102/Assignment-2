@@ -4,25 +4,23 @@ import string
 #Shift Cypher
 #################################
 
-
-
-
-
 def shiftE(text, key=3):
-    """
-    Encrypts plaintext using a shift (Caesar) cipher.
-    Default key=3 if none is provided.
-    """
     dict = []
     for i in text:
         if i.isalpha():
-            # Preserve case (uppercase vs. lowercase)
-            offset = 65 if i.isupper() else 97
-            shifted = chr((ord(i) - offset + key) % 26 + offset)
-            dict.append(shifted)
+            num = 65 if i.isupper() else 97
+            answer = chr((ord(i) - num + key) % 26 + num)
+            dict.append(answer)
+        elif i.isdigit():
+            num = 48 
+            answer = chr((ord(i) - num + key) % 10 + num)
+            dict.append(answer)
         else:
             dict.append(i)
+    
     return "".join(dict)
+
+
 
 def shift_decrypt(ciphertext, key=3):
     """
