@@ -5,7 +5,7 @@ import string
 #################################
 
 def shiftE(text, key=3):
-    dict = []
+    arr = []
     for i in text:
         if i.isalpha():
             num = 65 if i.isupper() else 97
@@ -14,9 +14,9 @@ def shiftE(text, key=3):
         elif i.isdigit():
             num = 48 
             answer = chr((ord(i) - num + key) % 10 + num)
-            dict.append(answer)
+            arr.append(answer)
         else:
-            dict.append(i)
+            arr.append(i)
     
     return "".join(dict)
 def shiftD(text, key=3):
@@ -26,12 +26,7 @@ def shiftD(text, key=3):
 #Permutation Cypher
 #################################
 
-def permutation_encrypt(text, key="QWERTYUIOPASDFGHJKLZXCVBNM"):
-    """
-    Encrypts text using a permutation substitution cipher.
-    Default permutation is QWERTYUIOPASDFGHJKLZXCVBNM for letters A-Z.
-    Non-alphabetic characters are left as-is.
-    """
+def permutation_encrypt(text, key="PLMOKNIJBUHVYGCTFXRDZESWAQ"):
     # Create a mapping from A->key[0], B->key[1], ...
     mapping = {}
     uppercase_alphabet = string.ascii_uppercase
@@ -53,7 +48,7 @@ def permutation_encrypt(text, key="QWERTYUIOPASDFGHJKLZXCVBNM"):
             ciphertext.append(char)
     return "".join(ciphertext)
 
-def permutation_decrypt(ciphertext, key="QWERTYUIOPASDFGHJKLZXCVBNM"):
+def permutation_decrypt(ciphertext, key="PLMOKNIJBUHVYGCTFXRDZESWAQ"):
     """
     Decrypts ciphertext using a permutation substitution cipher.
     Default permutation is QWERTYUIOPASDFGHJKLZXCVBNM.
@@ -231,7 +226,7 @@ def all_cipher():
 
         # Default keys for each cipher type
         shift_key = 7
-        perm_key = "QWERTYUIOPASDFGHJKLZXCVBNM"
+        perm_key = "PLMOKNIJBUHVYGCTFXRDZESWAQ"
         transposition_key = 4
         vigenere_key = "KEY"
 
