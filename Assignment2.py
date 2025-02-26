@@ -65,35 +65,21 @@ def st_encrypt(text, num_cols=5):
     rows = [text[i:i+num_cols] for i in range(0, len(text), num_cols)]
     return "".join(letter for col in zip_longest(*rows, fillvalue="") for letter in col)
 
-def simple_transposition_decrypt(text, cols=5):
-    """
-    Decrypts a message encrypted with simple_transposition_encrypt.
-    """
-    # The number of rows is based on how many full columns we can form
+def st_decrypt(text, cols=5):
     num_rows = len(text) // cols
-    # If there's a remainder, we have an extra partial row
     remainder = len(text) % cols
-
-    # We'll build the grid column-by-column
-    # Each column has 'num_rows' or 'num_rows+1' characters (for columns < remainder)
     grid = [''] * num_rows
     if remainder > 0:
-        grid.append('')  # For the partial row
-
+        grid.append('')
     idx = 0
     columns = [''] * cols
-
     for col in range(cols):
-        # Determine how many characters belong to this column
         col_size = num_rows + (1 if col < remainder else 0)
-        # Extract that portion from ciphertext
         columns[col] = text[idx:idx+col_size]
         idx += col_size
 
-    # Now read row-by-row
     rows = zip_longest(*columns, fillvalue="")
 
-    # Flatten the rows and remove any empty strings
     join_arr = [char for row in rows for char in row if char]
     return "".join(join_arr)
 
