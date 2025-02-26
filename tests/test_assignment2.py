@@ -76,7 +76,7 @@ def test_simple_transposition_encrypt_decrypt():
     expected = text.replace(" ", "").replace("\n", "")
     assert decrypted == expected
 
-###############################
+##############################
 # Double Transposition Tests
 ###############################
 
