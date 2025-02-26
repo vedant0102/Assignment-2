@@ -70,7 +70,8 @@ def test_simple_transposition_encrypt_decrypt():
     # Using a sentence with spaces (which are removed during encryption)
     text = "WE ARE DISCOVERED FLEE AT ONCE"
     encrypted = simple_transposition_encrypt(text, num_cols=5)
-    decrypted = simple_transposition_decrypt(encrypted, num_cols=5)
+    # Use 'cols' to match the function definition for st_decrypt
+    decrypted = simple_transposition_decrypt(encrypted, cols=5)
     # Since the encryption function removes spaces/newlines, compare with a stripped version.
     expected = text.replace(" ", "").replace("\n", "")
     assert decrypted == expected
@@ -81,9 +82,9 @@ def test_simple_transposition_encrypt_decrypt():
 
 def test_double_transposition_encrypt_decrypt():
     text = "WEAREDISCOVEREDFLEEATONCE"
-    # Call dte and dtd with the keyword argument 'num_cols'
-    encrypted = dte(text, num_cols=4)
-    decrypted = dtd(encrypted, num_cols=4)
+    # Use 'col' to match the function definition for dte and dtd
+    encrypted = dte(text, col=4)
+    decrypted = dtd(encrypted, col=4)
     assert decrypted == text
 
 ###############################
