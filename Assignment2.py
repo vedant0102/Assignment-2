@@ -32,7 +32,7 @@ def shiftD(text, key=3):
 def permutationE(text, key="PLMOKNIJBUHVYGCTFXRDZESWAQ"):
     big = string.ascii_uppercase
     key = key.upper()
-    dict = {}  
+    dict = {}
     for i, l in enumerate(big):
         dict[l] = key[i]
     join_arr = [
