@@ -212,67 +212,52 @@ def all_cipher():
                         shift_key = int(input("Enter an integer shift key: "))
                         break
                     except ValueError:
-                        print("Invalid input. Please enter a valid integer for the shift key.")
-            elif option == '2':  # Permutation Cipher
+                        print("Wrong input.")
+            elif option == '2': 
                 while True:
                     user_perm = input("Enter a permutation of 26 letters (A-Z): ").upper().strip()
                     if len(user_perm) == 26 and all(letter in string.ascii_uppercase for letter in user_perm):
                         perm_key = user_perm
                         break
                     else:
-                        print("Invalid permutation. Please ensure it contains exactly 26 letters (A-Z).")
-            elif option in ['3', '4']:  # Simple or Double Transposition
+                        print("Invalid permutation.")
+            elif option in ['3', '4']:
                 while True:
                     try:
                         transposition_key = int(input("Enter number of columns (integer): "))
                         break
                     except ValueError:
-                        print("Invalid input. Please enter a valid integer for the number of columns.")
-            elif option == '5':  # Vigenère Cipher
+                        print("Wrong Input")
+            elif option == '5': 
                 while True:
                     user_vigenere = input("Enter the Vigenère key (letters only): ").upper().strip()
                     if user_vigenere.isalpha():
                         vigenere_key = user_vigenere
                         break
                     else:
-                        print("Invalid key. Please enter letters only.")
+                        print("Wrong key. (enter letters)")
 
 
-        if option == '1':  # Shift Cipher
-            if eod == 'e':
-                output = shiftE(message, shift_key)
-            else:
-                output = shiftD(message, shift_key)
+        match option:
+            case '1':  # Shift Cipher
+                output = shiftE(message, shift_key) if eod == 'e' else shiftD(message, shift_key)
+            case '2':  # Permutation Cipher
+                output = permutationE(message, perm_key) if eod == 'e' else permutationD(message, perm_key)
+            case '3':  # Simple Transposition
+                output = st_encrypt(message, transposition_key) if eod == 'e' else simple_transposition_decrypt(message, transposition_key)
+            case '4':  # Double Transposition
+                output = dte(message, transposition_key) if eod == 'e' else dtd(message, transposition_key)
+            case '5':  # Vigenère
+                output = ve(message, vigenere_key) if eod == 'e' else vd(message, vigenere_key)
+            case _:
+                output = "Invalid option"
 
-        elif option == '2':  # Permutation Cipher
-            if eod == 'e':
-                output = permutationE(message, perm_key)
-            else:
-                output = permutationD(message, perm_key)
-
-        elif option == '3':  # Simple Transposition
-            if eod == 'e':
-                output = st_encrypt(message, transposition_key)
-            else:
-                output = simple_transposition_decrypt(message, transposition_key)
-
-        elif option == '4':  # Double Transposition
-            if eod == 'e':
-                output = dte(message, transposition_key)
-            else:
-                output = dtd(message, transposition_key)
-
-        elif option == '5':  # Vigenère
-            if eod == 'e':
-                output = ve(message, vigenere_key)
-            else:
-                output = vd(message, vigenere_key)
 
         # Display result
         if eod == 'e':
-            print(f"\nEncrypted Message (Ciphertext): {output}")
+            print(f"\nEncrypted Message = : {output}")
         else:
-            print(f"\nDecrypted Message (text): {output}")
+            print(f"\nDecrypted Message  = : {output}")
 
 
 if __name__ == "__main__":
