@@ -57,7 +57,7 @@ def permutationD(ciphertext, key="PLMOKNIJBUHVYGCTFXRDZESWAQ"):
 #################################
 
 from itertools import zip_longest
-def simple_transposition_encrypt(text, num_cols=5):
+def st_encrypt(text, num_cols=5):
     text = text.replace(" ", "").replace("\n", "")
     rows = [text[i:i+num_cols] for i in range(0, len(text), num_cols)]
     return "".join(letter for col in zip_longest(*rows, fillvalue="") for letter in col)
@@ -96,56 +96,57 @@ def simple_transposition_decrypt(ciphertext, num_cols=5):
                 text.append(columns[c][r])
     return "".join(text)
 
-def dte(text, num_cols=5):
-    """
-    Perform simple transposition twice.
-    """
-    once = simple_transposition_encrypt(text, num_cols)
-    return simple_transposition_encrypt(once, num_cols)
+###############################
+#Double Transporation Encryption
+#################################
 
-def dtd(ciphertext, num_cols=5):
-    """
-    Decrypt the message encrypted with double_transposition_encrypt.
-    """
-    once = simple_transposition_decrypt(ciphertext, num_cols)
-    return simple_transposition_decrypt(once, num_cols)
+def dte(text, col=5):
+    once = st_encrypt(text, col)
+    return st_encrypt(once, col)
 
-def vigenere_encrypt(text, key="KEY"):
-    """
-    Encrypts text using the Vigenère cipher.
-    Default key='KEY' if not provided.
-    """
-    ciphertext = []
+def dtd(text, col=5):
+    once = simple_transposition_decrypt(text, col)
+    return simple_transposition_decrypt(once, col)
+
+###############################
+#Vigenere Encryption
+#################################
+
+def ve(text, key="KEY"):
     key = key.upper()
     key_index = 0
-    for char in text:
-        if char.isalpha():
-            offset = 65 if char.isupper() else 97
+    join_arr = []
+    for i in text:
+        if i.isalpha():
+            if i.isupper():
+                offset = 65
+            else:
+                offset = 97
             shift = ord(key[key_index % len(key)]) - 65
-            encrypted_char = chr((ord(char) - offset + shift) % 26 + offset)
-            ciphertext.append(encrypted_char)
+            encrypted_char = chr((ord(i) - offset + shift) % 26 + offset)
+            join_arr.append(encrypted_char)
             key_index += 1
         else:
-            ciphertext.append(char)
-    return "".join(ciphertext)
+            join_arr.append(i)
+    return "".join(join_arr)
 
-def vigenere_decrypt(ciphertext, key="KEY"):
-    """
-    Decrypts ciphertext using the Vigenère cipher.
-    """
-    text = []
+def vd(text, key="KEY"):
     key = key.upper()
-    key_index = 0
-    for char in ciphertext:
-        if char.isalpha():
-            offset = 65 if char.isupper() else 97
-            shift = ord(key[key_index % len(key)]) - 65
-            decrypted_char = chr((ord(char) - offset - shift) % 26 + offset)
-            text.append(decrypted_char)
-            key_index += 1
+    ind = 0
+    join_arr = []
+    for i in text:
+        if i.isalpha():
+            if i.isupper():
+                start = 65
+            else:
+                start = 97
+            shift = ord(key[ind % len(key)]) - 65
+            decrypted_char = chr((ord(i) - start - shift) % 26 + start)
+            join_arr.append(decrypted_char)
+            ind += 1
         else:
-            text.append(char)
-    return "".join(text)
+            join_arr.append(i)
+    return "".join(join_arr)
 
 
 def all_cipher():
@@ -248,7 +249,7 @@ def all_cipher():
 
         elif option == '3':  # Simple Transposition
             if eod == 'e':
-                output = simple_transposition_encrypt(message, transposition_key)
+                output = st_encrypt(message, transposition_key)
             else:
                 output = simple_transposition_decrypt(message, transposition_key)
 
@@ -260,9 +261,9 @@ def all_cipher():
 
         elif option == '5':  # Vigenère
             if eod == 'e':
-                output = vigenere_encrypt(message, vigenere_key)
+                output = ve(message, vigenere_key)
             else:
-                output = vigenere_decrypt(message, vigenere_key)
+                output = vd(message, vigenere_key)
 
         # Display result
         if eod == 'e':
