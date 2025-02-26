@@ -228,7 +228,7 @@ def all_cipher():
             case '2':  # Permutation Cipher
                 output = permutationE(message, perm_key) if eod == 'e' else permutationD(message, perm_key)
             case '3':  # Simple Transposition
-                output = st_encrypt(message, transposition_key) if eod == 'e' else simple_transposition_decrypt(message, transposition_key)
+                output = st_encrypt(message, transposition_key) if eod == 'e' else st_decrypt(message, transposition_key)
             case '4':  # Double Transposition
                 output = dte(message, transposition_key) if eod == 'e' else dtd(message, transposition_key)
             case '5':  # Vigenère
