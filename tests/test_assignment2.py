@@ -5,12 +5,12 @@ from Assignment2 import (
     shiftD,
     permutationE,
     permutationD,
-    simple_transposition_encrypt,
-    simple_transposition_decrypt,
+    st_decrypt as simple_transposition_decrypt,
+    st_encrypt as simple_transposition_encrypt,
     dte,
     dtd,
-    vigenere_encrypt,
-    vigenere_decrypt,
+    ve as vigenere_encrypt,
+    vd as vigenere_decrypt,
 )
 
 ###############################
