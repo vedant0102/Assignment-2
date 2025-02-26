@@ -8,7 +8,10 @@ def shiftE(text, key=3):
     join_arr = []
     for i in text:
         if i.isalpha():
-            num = 65 if i.isupper() else 97
+            if i.isupper():
+                num = 65
+            else:
+                num = 97
             answer = chr((ord(i) - num + key) % 26 + num)
             join_arr.append(answer)
         elif i.isdigit():
