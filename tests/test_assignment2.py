@@ -76,15 +76,15 @@ def test_simple_transposition_encrypt_decrypt():
     expected = text.replace(" ", "").replace("\n", "")
     assert decrypted == expected
 
-##############################
+###############################
 # Double Transposition Tests
 ###############################
 
 def test_double_transposition_encrypt_decrypt():
     text = "WEAREDISCOVEREDFLEEATONCE"
-    # Use 'col' to match the function definition for dte and dtd
-    encrypted = dte(text, col=4)
-    decrypted = dtd(encrypted, col=4)
+    # Instead of using keyword argument, pass the column value as a positional argument
+    encrypted = dte(text, 4)
+    decrypted = dtd(encrypted, 4)
     assert decrypted == text
 
 ###############################
