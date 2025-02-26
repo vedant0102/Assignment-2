@@ -162,15 +162,5 @@ jobs:
   
 If the tests pass, the pipeline will complete successfully. Otherwise, it will report errors and block merging until issues are fixed.
 
----
 
-## Contributing
-
-Contributions are welcome! Please fork the repository, create a feature branch, and submit a pull request with your changes. Make sure to run tests locally before submitting your changes.
-
----
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
