@@ -5,8 +5,8 @@ from Assignment2 import (
     shiftD,
     permutationE,
     permutationD,
-    st_decrypt as simple_transposition_decrypt,
     st_encrypt as simple_transposition_encrypt,
+    st_decrypt as simple_transposition_decrypt,
     dte,
     dtd,
     ve as vigenere_encrypt,
@@ -67,12 +67,11 @@ def test_permutation_cipher_decryption():
 ###############################
 
 def test_simple_transposition_encrypt_decrypt():
-    # Using a sentence with spaces which are removed in encryption.
+    # Using a sentence with spaces (which are removed during encryption)
     text = "WE ARE DISCOVERED FLEE AT ONCE"
     encrypted = simple_transposition_encrypt(text, num_cols=5)
     decrypted = simple_transposition_decrypt(encrypted, num_cols=5)
-    # The encryption function removes spaces and newlines,
-    # so we compare against the stripped version.
+    # Since the encryption function removes spaces/newlines, compare with a stripped version.
     expected = text.replace(" ", "").replace("\n", "")
     assert decrypted == expected
 
@@ -82,6 +81,7 @@ def test_simple_transposition_encrypt_decrypt():
 
 def test_double_transposition_encrypt_decrypt():
     text = "WEAREDISCOVEREDFLEEATONCE"
+    # Call dte and dtd with the keyword argument 'num_cols'
     encrypted = dte(text, num_cols=4)
     decrypted = dtd(encrypted, num_cols=4)
     assert decrypted == text
