@@ -92,8 +92,8 @@ def dte(text, col=5):
     return st_encrypt(once, col)
 
 def dtd(text, col=5):
-    once = simple_transposition_decrypt(text, col)
-    return simple_transposition_decrypt(once, col)
+    once = st_decrypt(text, col)
+    return st_decrypt(once, col)
 
 ###############################
 #Vigenere Encryption
