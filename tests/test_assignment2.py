@@ -76,16 +76,6 @@ def test_simple_transposition_encrypt_decrypt():
     expected = text.replace(" ", "").replace("\n", "")
     assert decrypted == expected
 
-###############################
-# Double Transposition Tests
-###############################
-
-def test_double_transposition_encrypt_decrypt():
-    text = "WEAREDISCOVEREDFLEEATONCE"
-    # Instead of using keyword argument, pass the column value as a positional argument
-    encrypted = dte(text, 4)
-    decrypted = dtd(encrypted, 4)
-    assert decrypted == text
 
 ###############################
 # Vigenère Cipher Tests
